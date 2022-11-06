@@ -1,0 +1,125 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateItemDto {
+  alertStock: Float!
+  name: String!
+  refNumber: String!
+  stock: Float!
+}
+
+input CreateMouvementDto {
+  date: String!
+  itemId: Int
+  mouvement: String!
+  quantity: Float!
+  vehiculeId: Float!
+}
+
+input CreateUserDto {
+  email: String!
+  firstName: String!
+  isAdmin: Boolean!
+  lastName: String!
+  password: String!
+}
+
+input CreateVehiculeDto {
+  name: String!
+}
+
+type Item {
+  alertStock: Float!
+  id: ID!
+  mouvements: [Mouvement!]
+  name: String!
+  refNumber: String!
+
+  """Just 2 values : 'active' | 'declutter'"""
+  status: String
+  stock: Float!
+}
+
+type Mouvement {
+  date: String!
+  id: ID!
+  item: Item!
+  mouvement: String!
+  quantity: Float!
+  vehicule: Vehicule!
+}
+
+type Mutation {
+  createItem(createItemInput: CreateItemDto!): Item!
+  createMouvement(createMouvementInput: CreateMouvementDto!): Mouvement!
+  createUser(createUserInput: CreateUserDto!): User!
+  createVehicule(createVehiculeInput: CreateVehiculeDto!): Vehicule!
+  removeItem(id: Int!): Item!
+  removeMouvement(id: Int!): Mouvement!
+  removeUser(id: Int!): User!
+  removeVehicule(id: Int!): Vehicule!
+  updateItem(updateItemInput: UpdateItemDto!): Item!
+  updateMouvement(updateMouvementInput: UpdateMouvementDto!): Mouvement!
+  updateUser(updateUserInput: UpdateUserDto!): User!
+  updateVehicule(updateVehiculeInput: UpdateVehiculeDto!): Vehicule!
+}
+
+type Query {
+  Item(id: Int!): Item!
+  Items: [Item!]!
+  Mouvement(id: Int!): Mouvement!
+  Mouvements: [Mouvement!]!
+  Vehicule(id: Int!): Vehicule!
+  Vehicules: [Vehicule!]!
+  user(email: String!): User!
+}
+
+input UpdateItemDto {
+  alertStock: Float
+  id: Int!
+  name: String
+  refNumber: String
+  stock: Float
+}
+
+input UpdateMouvementDto {
+  date: String
+  id: Int!
+  itemId: Int
+  mouvement: String
+  quantity: Float
+  vehiculeId: Float
+}
+
+input UpdateUserDto {
+  email: String
+  firstName: String
+  id: Int!
+  isAdmin: Boolean
+  lastName: String
+  password: String
+}
+
+input UpdateVehiculeDto {
+  id: Int!
+  name: String
+}
+
+type User {
+  email: String!
+  firstName: String!
+  id: ID!
+  isAdmin: Boolean!
+  lastName: String!
+  password: String!
+}
+
+type Vehicule {
+  id: ID!
+  mouvements: [Mouvement!]
+  name: String!
+
+  """Just 2 values : 'active' | 'declutter'"""
+  status: String
+}
