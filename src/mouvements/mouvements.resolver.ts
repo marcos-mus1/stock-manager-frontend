@@ -6,11 +6,11 @@ import { UpdateMouvementDto } from './dto/update-mouvement.dto';
 import { Mouvement } from './entities/mouvement.entity';
 import { MouvementsService } from './mouvements.service';
 
-@UseGuards(GqlAuthGuard)
 @Resolver(() => Mouvement)
 export class MouvementsResolver {
   constructor(private readonly mouvementService: MouvementsService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Mouvement)
   createMouvement(
     @Args('createMouvementInput') createMouvementInput: CreateMouvementDto,
@@ -18,16 +18,19 @@ export class MouvementsResolver {
     return this.mouvementService.create(createMouvementInput);
   }
 
-  @Query(() => [Mouvement], { name: 'Mouvements' })
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Mouvement], { name: 'mouvements' })
   findAll() {
     return this.mouvementService.findAll();
   }
 
-  @Query(() => Mouvement, { name: 'Mouvement' })
+  @UseGuards(GqlAuthGuard)
+  @Query(() => Mouvement, { name: 'mouvement' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.mouvementService.findOne(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Mouvement)
   updateMouvement(
     @Args('updateMouvementInput') updateMouvementInput: UpdateMouvementDto,
@@ -38,6 +41,7 @@ export class MouvementsResolver {
     );
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Mouvement)
   removeMouvement(@Args('id', { type: () => Int }) id: number) {
     return this.mouvementService.remove(id);

@@ -6,11 +6,11 @@ import { UpdateVehiculeDto } from './dto/update-vehicule.dto';
 import { Vehicule } from './entities/vehicule.entity';
 import { VehiculesService } from './vehicules.service';
 
-@UseGuards(GqlAuthGuard)
 @Resolver(() => Vehicule)
 export class VehiculesResolver {
   constructor(private readonly vehiculeService: VehiculesService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Vehicule)
   createVehicule(
     @Args('createVehiculeInput') createVehiculeInput: CreateVehiculeDto,
@@ -18,16 +18,19 @@ export class VehiculesResolver {
     return this.vehiculeService.create(createVehiculeInput);
   }
 
-  @Query(() => [Vehicule], { name: 'Vehicules' })
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Vehicule], { name: 'vehicules' })
   findAll() {
     return this.vehiculeService.findAll();
   }
 
-  @Query(() => Vehicule, { name: 'Vehicule' })
+  @UseGuards(GqlAuthGuard)
+  @Query(() => Vehicule, { name: 'vehicule' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.vehiculeService.findOne(id);
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Vehicule)
   updateVehicule(
     @Args('updateVehiculeInput') updateVehiculeInput: UpdateVehiculeDto,
@@ -38,6 +41,7 @@ export class VehiculesResolver {
     );
   }
 
+  @UseGuards(GqlAuthGuard)
   @Mutation(() => Vehicule)
   removeVehicule(@Args('id', { type: () => Int }) id: number) {
     return this.vehiculeService.remove(id);

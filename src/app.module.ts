@@ -19,6 +19,15 @@ import { Vehicule } from './vehicules/entities/vehicule.entity';
 
 @Module({
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      sortSchema: true,
+      cors: {
+        origin: '*',
+        credentials: true,
+      },
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -27,14 +36,7 @@ import { Vehicule } from './vehicules/entities/vehicule.entity';
         JWT_SECRET: Joi.string().required(),
       }),
     }),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      playground: true,
-      debug: true,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      introspection: true,
-    }),
+
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
@@ -51,6 +53,7 @@ import { Vehicule } from './vehicules/entities/vehicule.entity';
         };
       },
     }),
+
     AuthModule,
     UsersModule,
     ItemsModule,

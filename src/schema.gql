@@ -66,13 +66,13 @@ type Mutation {
 }
 
 type Query {
-  Item(id: Int!): Item!
-  Items: [Item!]!
-  Mouvement(id: Int!): Mouvement!
-  Mouvements: [Mouvement!]!
-  Vehicule(id: Int!): Vehicule!
-  Vehicules: [Vehicule!]!
+  item(id: Int!): Item!
+  items: [Item!]!
+  mouvement(id: Int!): Mouvement!
+  mouvements: [Mouvement!]!
   user(email: String!): User!
+  vehicule(id: Int!): Vehicule!
+  vehicules: [Vehicule!]!
 }
 
 input UpdateItemDto {
